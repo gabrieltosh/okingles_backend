@@ -4,13 +4,15 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+         $this->call(SeedBranchOffice::class);
+         $this->call(SeedModule::class);
+         $this->call(SeedProfile::class);
+         $this->call(SeedModuleProfile::class);
+         $this->call(SeedUser::class);
+         $this->call(SeedClassroom::class);
+         $this->call(SeedTime::class);
+         $this->call(SeedLesson::class);
     }
 }
