@@ -17,8 +17,14 @@ class CreateAssignmentStudentsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('schedule_id')->unsigned();
             $table->bigInteger('student_id')->unsigned();
+            $table->bigInteger('skills_id')->unsigned()->nullable();
+            $table->bigInteger('detail_lesson_id')->unsigned()->nullable();
+            $table->float('percentage')->nullable();
+            $table->boolean('absent')->nullable()->default(0);
             $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->foreign('student_id')->references('id')->on('users');
+            $table->foreign('detail_lesson_id')->references('id')->on('detail_lessons');
+            $table->foreign('skills_id')->references('id')->on('skills');
             $table->timestamps();
         });
     }

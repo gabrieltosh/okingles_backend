@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Schedule;
+use Carbon\Carbon;
 class Days extends Model
 {
     protected $table='days';
@@ -20,8 +21,10 @@ class Days extends Model
     }
     public function getDeactivateAttribute()
     {
-        $schedule=Schedule::where('day_id',$this->id)->count();
-        if($schedule>0){
+        $day=Days::where('id',$this->id)->first();
+        $date=Carbon::parse($day->day_date);
+        $now = Carbon::now()->format('Y-m-d');
+        if($date->lessThan($now)){
             return 0;
         }else{
             return 1;

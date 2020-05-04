@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Lesson;
 use Response;
+use App\DetailLesson;
 class LessonController extends Controller
 {
     public function handleStoreLesson(Request $request){
@@ -18,6 +19,15 @@ class LessonController extends Controller
         Lesson::findOrFail($id)->delete();
     }
     public function handleGetLesson(){
-        return Response::json(Lesson::get());
+        return Response::json(Lesson::orderBy('id','desc')->with('detail')->get());
+    }
+    public function handleStoreDetailLesson(Request $request){
+        DetailLesson::create($request->all());
+    }
+    public function handleGetDetailLesson($lesson_id){
+        return Response::json(DetailLesson::where('lesson_id',$lesson_id)->get());
+    }
+    public function handleDeleteDetailLesson($id){
+        DetailLesson::findOrFail($id)->delete();
     }
 }

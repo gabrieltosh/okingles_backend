@@ -11,4 +11,7 @@ class Lesson extends Model
         'name',
         'description'
     ];
+    public function detail(){
+        return $this->hasMany(DetailLesson::class,'lesson_id');
+    }
 }

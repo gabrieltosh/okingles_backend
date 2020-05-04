@@ -11,6 +11,7 @@ use Response;
 use App\Schedule;
 use App\User;
 use App\AssignmentStudent;
+use DB;
 class ScheduleController extends Controller
 {
     public function handleGetClassroom(){
@@ -60,7 +61,35 @@ class ScheduleController extends Controller
     public function handleRemoveStudent($id){
         AssignmentStudent::findOrFail($id)->delete();
     }
-    public function handleGetSelectStudents(){
-        return Response::json(User::where('status',1)->where('type','Estudiante')->get());
+    public function handleGetSelectStudents($branch_office_id){
+        return Response::json(User::where('status',1)->where('type','Estudiante')->where('branch_office_id',$branch_office_id)->get());
+    }
+    public function handleStoreStudent(Request $request){
+        $valid=DB::table('schedules')
+            ->select('schedules.id')
+            ->join('assignment_students', 'assignment_students.schedule_id', '=', 'schedules.id')
+            ->where('schedules.time_id',$request->time_id)
+            ->where('schedules.day_id',$request->day_id)
+            ->where('assignment_students.student_id',$request->student_id)
+            ->count();
+        $numer_assignament=AssignmentStudent::where('schedule_id',$request->schedule_id)->count();
+        $schedule=Schedule::where('id',$request->schedule_id)->first();
+        if($valid>0)
+        {
+            return 0;
+        }else{
+            if($numer_assignament+1<=$schedule->number_student){
+                AssignmentStudent::create(
+                    [
+                        'schedule_id'=>$request->schedule_id,
+                        'student_id'=>$request->student_id
+                    ]
+                );
+                return 1;
+            }else{
+                return 2;
+            }
+          
+        }
     }
 }

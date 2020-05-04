@@ -41,7 +41,6 @@ class UserController extends Controller
     }
     public function HandleGetUser(Request $request){
        try {
-
             if (! $userFind = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
@@ -64,8 +63,18 @@ class UserController extends Controller
     public function HandleGetBranchOffice(){
         return Response::json(BranchOffice::select('name','id')->orderBy('id','desc')->get());
     }
-    public function HandleGetUsers(){
-        return Response::json(User::with('profile','branch_office')->get());
+    public function HandleGetUsers($type){
+        switch ($type) {
+            case 'admins':
+                return Response::json(User::where('type','Administrativo')->with('profile','branch_office')->get());
+                break;
+            case 'teachers':
+                return Response::json(User::where('type','Docente')->with('profile','branch_office')->get());
+                break;
+            case 'students':
+                return Response::json(User::where('type','Estudiante')->with('profile','branch_office')->get());
+                break;
+        }
     }
     public function HandleChangeStatus($id){
         $user=User::findOrFail($id);

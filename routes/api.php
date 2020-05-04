@@ -46,7 +46,7 @@ Route::middleware('auth:api')->prefix('panel')->namespace('DataRegister')->group
         Route::post('post/upload','UserController@HandleUploadImage');
         Route::get('get/profile','UserController@HandleGetProfiles');
         Route::get('get/branch','UserController@HandleGetBranchOffice');
-        Route::get('get/users','UserController@HandleGetUsers');
+        Route::get('get/users/{type}','UserController@HandleGetUsers');
         Route::delete('delete/user/{id}','UserController@HandleDeleteUser');
         Route::get('get/status/{id}','UserController@HandleChangeStatus');
         Route::post('post/update/user','UserController@HandleUpdateUser');
@@ -62,6 +62,9 @@ Route::middleware('auth:api')->prefix('panel')->namespace('DataRegister')->group
         Route::get('get/lesson', 'LessonController@handleGetLesson');
         Route::delete('delete/lesson/{id}', 'LessonController@handleDeleteLesson');
         Route::post('update/lesson', 'LessonController@handleUpdateLesson');
+        Route::post('store/detail', 'LessonController@handleStoreDetailLesson');
+        Route::get('get/detail/{lesson_id}', 'LessonController@handleGetDetailLesson');
+        Route::delete('delete/detail/{lesson_id}', 'LessonController@handleDeleteDetailLesson');
     });
     Route::prefix('time')->group(function(){
         Route::post('post/time', 'TimeController@handleStoreTime');
@@ -92,7 +95,14 @@ Route::middleware('auth:api')->prefix('panel')->namespace('DataRegister')->group
         Route::get('get/schedule/{schedule_id}', 'ScheduleController@handleSchedule');
         Route::post('update/lesson', 'ScheduleController@handleUpdateLesson');
         Route::delete('delete/student/{id}', 'ScheduleController@handleRemoveStudent');
-        Route::get('get/student', 'ScheduleController@handleGetSelectStudents');
+        Route::get('get/student/{branch_office_id}', 'ScheduleController@handleGetSelectStudents');
+        Route::post('store/assignment', 'ScheduleController@handleStoreStudent');
+    });
+    Route::prefix('skill')->group(function(){
+        Route::post('store/skill', 'SkillController@handleStoreSkill');
+        Route::get('get/skill', 'SkillController@handleGetSkills');
+        Route::delete('delete/skill/{id}', 'SkillController@handleDeleteSkill');
+        Route::post('update/skill', 'SkillController@handleUpdateSkill');
     });
 });
 Route::middleware('auth:api')->namespace('Process')->group(function(){
@@ -104,6 +114,16 @@ Route::middleware('auth:api')->namespace('Process')->group(function(){
         Route::post('get/schedule', 'StudentScheduleController@handleGetSchedule');
         Route::get('get/lessons', 'StudentScheduleController@handleGetLessons');
         Route::post('get/assignment', 'StudentScheduleController@handleStoreAssignment');
+    });
+    Route::prefix('teacher')->group(function(){
+        Route::get('get/days/{id}', 'TeacherScheduleController@handleGetDays');
+        Route::post('get/schedule', 'TeacherScheduleController@handleGetSchedule');
+        Route::get('get/students/{schedule_id}', 'TeacherScheduleController@handleGetStudents');
+        Route::get('store/student/absent/{assignment_student_id}', 'TeacherScheduleController@handleGetStudentAbsent');
+        Route::get('get/skills', 'TeacherScheduleController@handleGetSkills');
+        Route::get('get/lessons/{lesson_id}', 'TeacherScheduleController@handleGetDetailLesson');
+        Route::post('store/skill', 'TeacherScheduleController@handleStoreSkill');
+        Route::get('get/student/detail/{student_id}', 'TeacherScheduleController@handleGetStudent');
     });
 });
 

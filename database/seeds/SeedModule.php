@@ -73,9 +73,23 @@ class SeedModule extends Seeder
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'name'=>'Horario',
+                'name'=>'Centralizador Horarios ',
                 'route'=>'/panel/week/branchoffice',
                 'sub_module'=>2,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Habilidades',
+                'route'=>'/panel/skill/list',
+                'sub_module'=>2,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Horarios Estudiante',
+                'route'=>'/panel/student/days',
+                'sub_module'=>null,
                 'icon'=>'eva-clock-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ]

@@ -8,6 +8,7 @@ use App\Profile;
 use Response;
 use App\ProfileModule;
 use DB;
+use App\Module;
 class ProfileController extends Controller
 {
     public function HandleStoreProfile(Request $request){
@@ -23,10 +24,19 @@ class ProfileController extends Controller
         Profile::findOrFail($request->id)->fill($request->all())->save();
     }
     public function HandleGetProfileModule($id){
-        return Response::json(DB::select('SELECT * FROM ok.modulesAssigned T1 WHERE  T1.profile_id='.$id));
+        return Response::json(
+            DB::table('profile_modules')
+                ->select('profile_modules.id','profile_modules.profile_id','modules.name','profile_modules.create','profile_modules.edit','profile_modules.delete')
+                ->join('modules', 'modules.id', '=', 'profile_modules.module_id')
+                ->where('profile_modules.profile_id',$id)
+                ->get()
+        );
     }   
     public function HandleGetNotProfileModule($id){
-        return Response::json(DB::select('CALL modulesNotAssigned('.$id.')'));
+        $module=ProfileModule::select('module_id')->where('profile_id',$id)->get();
+        return Response::json(
+            Module::whereNotIn('id',$module)->get()
+        );
     }
     public function HandlStoreProfileModule(Request $request){
         ProfileModule::create($request->all());
