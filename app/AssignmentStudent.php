@@ -15,6 +15,21 @@ class AssignmentStudent extends Model
         'absent',
         'detail_lesson_id'
     ];
+    protected $appends = ['status'];
+    public function getStatusAttribute()
+    {
+        if($this->absent==0 && is_null($this->detail_lesson_id)){
+            return 'wait';
+        }else{
+            if($this->absent==0 && !is_null($this->detail_lesson_id)){
+                return 'present';
+            }else{
+                if($this->absent==1 && is_null($this->detail_lesson_id)){
+                    return 'absent';
+                }
+            }
+        }
+    }
     public function student(){
         return $this->belongsTo(User::class,'student_id');
     }

@@ -15,5 +15,8 @@ class DatabaseSeeder extends Seeder
          $this->call(SeedTime::class);
          $this->call(SeedLesson::class);
          $this->call(SeedSkills::class);
+         $this->call(SeedWebPage::class);
+         $this->call(SeedWebCard1::class);
+         $this->call(SeedWebCard2::class);
     }
 }

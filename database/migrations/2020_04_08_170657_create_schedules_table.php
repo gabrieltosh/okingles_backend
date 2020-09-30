@@ -20,12 +20,14 @@ class CreateSchedulesTable extends Migration
             $table->bigInteger('time_id')->unsigned();
             $table->bigInteger('teacher_id')->unsigned()->nullable();
             $table->bigInteger('lesson_id')->unsigned()->nullable();
+            $table->bigInteger('material_id')->unsigned()->nullable();
             $table->integer('number_student')->unsigned()->nullable();
             $table->foreign('day_id')->references('id')->on('days');
             $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('time_id')->references('id')->on('times');
             $table->foreign('teacher_id')->references('id')->on('users');
             $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('material_id')->references('id')->on('materials');
             $table->timestamps();
         });
     }

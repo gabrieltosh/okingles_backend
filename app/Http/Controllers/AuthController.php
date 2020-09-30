@@ -10,7 +10,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
 {
-    
+
     public function HandleLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         return response()->json(compact('token'))->header('Authorization', $token);
     }
-   
+
     public function HandleLogout()
     {
         $this->HandleGuard()->logout();
@@ -33,7 +33,7 @@ class AuthController extends Controller
             'msg' => 'Logged out Successfully.'
         ], 200);
     }
-  
+
     public function HandleRefresh()
     {
         if ($token = $this->HandleGuard()->refresh()) {
@@ -41,9 +41,25 @@ class AuthController extends Controller
                 ->json(['status' => 'successs'], 200)
                 ->header('Authorization', $token);
         }
+
         return response()->json(['error' => 'refresh_token_error'], 401);
+
+
+
+
+        try{
+            if($token = JWTAuth::getToken()){
+              JWTAuth::checkOrFail();
+            }
+          }
+          catch(TokenExpiredException $e){
+            JWTAuth::setToken(JWTAuth::refresh());
+          }
+          return response()
+                  ->json(['status' => 'successs'], 200)
+                  ->header('Authorization', JWTAuth::getToken()->get());
     }
-  
+
     private function HandleGuard()
     {
         return Auth::guard();

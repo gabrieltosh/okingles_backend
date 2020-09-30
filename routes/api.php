@@ -5,10 +5,10 @@ Route::prefix('auth')->group(function () {
     Route::post('register', 'DataRegister\UserController@HandleRegisterUser');
     // Login User
     Route::post('login', 'AuthController@HandleLogin');
-    
+
     // Refresh the JWT Token
     Route::get('refresh', 'AuthController@HandleRefresh');
-    
+
     // Below mention routes are available only for the authenticated users.
     Route::middleware('auth:api')->group(function () {
         // Get user info
@@ -104,6 +104,14 @@ Route::middleware('auth:api')->prefix('panel')->namespace('DataRegister')->group
         Route::delete('delete/skill/{id}', 'SkillController@handleDeleteSkill');
         Route::post('update/skill', 'SkillController@handleUpdateSkill');
     });
+    Route::prefix('teacher')->group(function(){
+        Route::get('get/materials', 'MaterialController@handleGetMaterials');
+        Route::post('store/material/upload', 'MaterialController@handleUploadImage');
+        Route::post('store/material/file', 'MaterialController@handleStoreFile');
+        Route::post('get/material/file', 'MaterialController@handleGetFiles');
+        Route::post('delete/material/file', 'MaterialController@handleDeleteFile');
+        Route::post('store/material', 'MaterialController@handleStoreMaterial');
+    });
 });
 Route::middleware('auth:api')->namespace('Process')->group(function(){
     Route::prefix('panel')->group(function(){
@@ -113,6 +121,8 @@ Route::middleware('auth:api')->namespace('Process')->group(function(){
         Route::get('get/days/{id}', 'StudentScheduleController@handleGetDays');
         Route::post('get/schedule', 'StudentScheduleController@handleGetSchedule');
         Route::get('get/lessons', 'StudentScheduleController@handleGetLessons');
+        Route::post('get/assignment/today', 'StudentScheduleController@handleGetAssignmentToDay');
+        Route::post('get/assignment/history', 'StudentScheduleController@handleGetAssignmentHistory');
         Route::post('get/assignment', 'StudentScheduleController@handleStoreAssignment');
     });
     Route::prefix('teacher')->group(function(){

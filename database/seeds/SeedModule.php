@@ -88,7 +88,7 @@ class SeedModule extends Seeder
             ],
             [
                 'name'=>'Horarios Estudiante',
-                'route'=>'/panel/student/days',
+                'route'=>'/panel/student/reservation/days',
                 'sub_module'=>null,
                 'icon'=>'eva-clock-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')

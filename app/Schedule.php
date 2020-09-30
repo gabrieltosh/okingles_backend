@@ -17,6 +17,7 @@ class Schedule extends Model
         'teacher_id',
         'lesson_id',
         'number_student',
+        'material_id'
     ];
     protected $appends = ['assigned','valid'];
     public function getAssignedAttribute()
@@ -49,5 +50,8 @@ class Schedule extends Model
     }
     public function lesson(){
         return $this->belongsTo(Lesson::class,'lesson_id');
+    }
+    public function material(){
+        return $this->belongsTo(Material::class,'lesson_id');
     }
 }

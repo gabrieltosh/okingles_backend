@@ -104,8 +104,7 @@ class UserController extends Controller
                 'invoice'=>$data->invoice,
                 'registter'=>$data->registter,
                 'branch_office_id'=>$data->branch_office_id,
-                'profile_id'=>$data->profile_id,
-                'password'=>$data->password,
+                'profile_id'=>$data->profile_id
             ])->save();
         }else{
             User::findOrFail($data->id)->fill([
