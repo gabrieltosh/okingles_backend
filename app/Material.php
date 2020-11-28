@@ -11,4 +11,10 @@ class Material extends Model
         'title',
         'description'
     ];
+    public function files(){
+        return $this->hasMany(MaterialFile::class);
+    }
+    public function links(){
+        return $this->hasMany(MaterialLink::class);
+    }
 }

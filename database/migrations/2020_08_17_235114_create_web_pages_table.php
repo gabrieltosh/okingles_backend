@@ -10,7 +10,7 @@ class CreateWebPagesTable extends Migration
     {
         Schema::create('web_page', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('identifier')->unique();
+            $table->text('identifier',350);
             $table->text('value');
         });
     }

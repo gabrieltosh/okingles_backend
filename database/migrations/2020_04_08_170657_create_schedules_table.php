@@ -22,6 +22,7 @@ class CreateSchedulesTable extends Migration
             $table->bigInteger('lesson_id')->unsigned()->nullable();
             $table->bigInteger('material_id')->unsigned()->nullable();
             $table->integer('number_student')->unsigned()->nullable();
+            $table->string('link_zoom')->nullable();
             $table->foreign('day_id')->references('id')->on('days');
             $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('time_id')->references('id')->on('times');

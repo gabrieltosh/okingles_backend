@@ -108,9 +108,31 @@ Route::middleware('auth:api')->prefix('panel')->namespace('DataRegister')->group
         Route::get('get/materials', 'MaterialController@handleGetMaterials');
         Route::post('store/material/upload', 'MaterialController@handleUploadImage');
         Route::post('store/material/file', 'MaterialController@handleStoreFile');
+        Route::post('store/material/link', 'MaterialController@handleStoreLink');
         Route::post('get/material/file', 'MaterialController@handleGetFiles');
+        Route::post('get/material/link', 'MaterialController@handleGetLinks');
         Route::post('delete/material/file', 'MaterialController@handleDeleteFile');
+        Route::post('delete/material/link', 'MaterialController@handleDeleteLink');
         Route::post('store/material', 'MaterialController@handleStoreMaterial');
+        Route::post('delete/material', 'MaterialController@handleDeleteMaterial');
+        Route::get('get/questionnaires', 'QuestionnairesController@handleGetQuestionnaires');
+        Route::post('store/questionnaires', 'QuestionnairesController@handleStoreQuestionnaries');
+        Route::post('delete/questionnaires', 'QuestionnairesController@handleDeleteQuestionnaries');
+        Route::post('get/question/data', 'QuestionnairesController@handleGetQuestions');
+        Route::post('store/question', 'QuestionnairesController@handleStoreQuestion');
+        Route::post('upload/question', 'QuestionnairesController@handleUploadFile');
+        Route::post('delete/question', 'QuestionnairesController@handleDeleteQuestion');
+        Route::post('update/question','QuestionnairesController@handleUpdateQuestion');
+        Route::post('get/options','QuestionnairesController@handleGetProperty');
+        Route::post('store/options','QuestionnairesController@handleStoreOptions');
+        Route::post('delete/option','QuestionnairesController@handleRemoveOption');
+        Route::post('get/answers','QuestionnairesController@handleGetAnswers');
+        Route::post('store/answers','QuestionnairesController@handleStoreAnswers');
+        Route::post('store/answer','QuestionnairesController@handleStoreAnswer');
+        Route::post('get/questions/preview','QuestionnairesController@handleGetQuestionPreview');
+        Route::post('delete/answer','QuestionnairesController@handleRemoveAnswer');
+        Route::post('store/option/yesnot','QuestionnairesController@handleStoreOptionYesNot');
+        Route::post('store/option/range','QuestionnairesController@handleStoreOptionRange');
     });
 });
 Route::middleware('auth:api')->namespace('Process')->group(function(){
@@ -124,6 +146,7 @@ Route::middleware('auth:api')->namespace('Process')->group(function(){
         Route::post('get/assignment/today', 'StudentScheduleController@handleGetAssignmentToDay');
         Route::post('get/assignment/history', 'StudentScheduleController@handleGetAssignmentHistory');
         Route::post('get/assignment', 'StudentScheduleController@handleStoreAssignment');
+        Route::post('get/myclass/schedule', 'StudentScheduleController@handleGetScheduleInMyClass');
     });
     Route::prefix('teacher')->group(function(){
         Route::get('get/days/{id}', 'TeacherScheduleController@handleGetDays');
@@ -134,6 +157,14 @@ Route::middleware('auth:api')->namespace('Process')->group(function(){
         Route::get('get/lessons/{lesson_id}', 'TeacherScheduleController@handleGetDetailLesson');
         Route::post('store/skill', 'TeacherScheduleController@handleStoreSkill');
         Route::get('get/student/detail/{student_id}', 'TeacherScheduleController@handleGetStudent');
+        Route::post('store/link_zoom', 'TeacherScheduleController@handleStoreLinkZoom');
+        Route::post('store/material', 'TeacherScheduleController@handleStoreMaterial');
+        Route::get('get/materials', 'TeacherScheduleController@handleGetMaterials');
+        Route::post('delete/material', 'TeacherScheduleController@handleDeleteMaterial');
+        Route::get('get/questionnaires', 'TeacherScheduleController@handleGetQuestionnaires');
+        Route::post('store/questionnaire', 'TeacherScheduleController@handleStoreQuestionnaire');
+        Route::post('delete/questionnaire', 'TeacherScheduleController@handleDeleteQuestionarie');
+        Route::post('update/questionnaire/status', 'TeacherScheduleController@handleStatusQuestionarie');
     });
 });
 

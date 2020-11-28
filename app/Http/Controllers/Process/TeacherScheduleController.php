@@ -12,6 +12,9 @@ use App\Schedule;
 use App\AssignmentStudent;
 use App\Skill;
 use App\DetailLesson;
+use App\Material;
+use App\Questionnaire;
+use App\AssigmentQuestionnaires;
 class TeacherScheduleController extends Controller
 {
     public function handleGetDays($id){
@@ -36,7 +39,7 @@ class TeacherScheduleController extends Controller
         return Response::json(
             Schedule::where('teacher_id',$request->teacher_id)
                     ->where('day_id',$request->day_id)
-                    ->with('day','classroom','time','teacher','lesson')
+                    ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
                     ->get()
         );
     }
@@ -74,5 +77,59 @@ class TeacherScheduleController extends Controller
         return Response::json(
             DetailLesson::where('lesson_id',$lesson_id)->get()
         );
+    }
+    public function handleStoreLinkZoom(Request $request){
+        Schedule::findOrFail($request->schedule["id"])->fill([
+            'link_zoom'=>$request->link
+        ])->save();
+        return Response::json(Schedule::where('id',$request->schedule["id"])
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
+    }
+    public function handleStoreMaterial(Request $request){
+        Schedule::findOrFail($request->schedule_id)->fill([
+            'material_id'=>$request->material_id
+        ])->save();
+        return Response::json(Schedule::where('id',$request->schedule_id)
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
+    }
+    public function handleStoreQuestionnaire(Request $request){
+        AssigmentQuestionnaires::create([
+            'schedule_id'=>$request->schedule_id,
+            'questionnaire_id'=>$request->questionnaire_id,
+            'status'=>'disable',
+        ]);
+        return Response::json(Schedule::where('id',$request->schedule_id)
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
+    }
+    public function handleGetMaterials(){
+        return Response::json(Material::select('id','title')->get());
+    }
+    public function handleGetQuestionnaires(){
+        return Response::json(Questionnaire::select('id','title')->get());
+    }
+    public function handleDeleteMaterial(Request $request){
+        Schedule::findOrFail($request->schedule_id)->fill([
+            'material_id'=>null
+        ])->save();
+        return Response::json(Schedule::where('id',$request->schedule_id)
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
+    }
+    public function handleDeleteQuestionarie(Request $request){
+        AssigmentQuestionnaires::findOrFail($request->id)->delete();
+        return Response::json(Schedule::where('id',$request->schedule_id)
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
+    }
+    public function handleStatusQuestionarie(Request $request){
+        AssigmentQuestionnaires::findOrFail($request->id)->fill([
+            'status'=>$request->status==='enable'?'disable':'enable'
+        ])->save();
+        return Response::json(Schedule::where('id',$request->schedule_id)
+                ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                ->first());
     }
 }

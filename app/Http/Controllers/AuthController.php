@@ -44,22 +44,38 @@ class AuthController extends Controller
 
         return response()->json(['error' => 'refresh_token_error'], 401);
 
-
-
-
-        try{
-            if($token = JWTAuth::getToken()){
-              JWTAuth::checkOrFail();
-            }
-          }
-          catch(TokenExpiredException $e){
-            JWTAuth::setToken(JWTAuth::refresh());
-          }
-          return response()
-                  ->json(['status' => 'successs'], 200)
-                  ->header('Authorization', JWTAuth::getToken()->get());
+        // try{
+        //     if($token = JWTAuth::getToken()){
+        //       JWTAuth::checkOrFail();
+        //     }
+        //   }
+        //   catch(TokenExpiredException $e){
+        //     JWTAuth::setToken(JWTAuth::refresh());
+        //   }
+        //   return response()
+        //           ->json(['status' => 'successs'], 200)
+        //           ->header('Authorization', JWTAuth::getToken()->get());
     }
+    // public function refresh()
+    // {
+    //     return $this->respondWithToken($this->guard()->refresh());
+    // }
 
+    // /**
+    //     * Get the token array structure.
+    //     *
+    //     * @param  string $token
+    //     *
+    //     * @return \Illuminate\Http\JsonResponse
+    //     */
+    // protected function respondWithToken($token)
+    // {
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'bearer',
+    //         'expires_in' => $this->guard()->factory()->getTTL() * 60
+    //     ]);
+    // }
     private function HandleGuard()
     {
         return Auth::guard();

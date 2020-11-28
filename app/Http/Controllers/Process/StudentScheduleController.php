@@ -166,4 +166,11 @@ class StudentScheduleController extends Controller
             "data" => $data,
         ));
     }
+    public function handleGetScheduleInMyClass(Request $request){
+        return Response::json(
+            Schedule::where('id',$request->schedule_id)
+                    ->with('day','classroom','time','teacher','lesson','material.files','material.links','questionnaires.questionnaire')
+                    ->first()
+        );
+    }
 }

@@ -1,0 +1,5 @@
+
+
+1. Equipo\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Search
+
+2. BingSearchEnabled

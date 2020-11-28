@@ -17,6 +17,22 @@ class SeedModuleProfile extends Seeder
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'profile_id'=>3,
+                'module_id'=>1,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>2,
+                'module_id'=>1,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'profile_id'=>1,
                 'module_id'=>2,
                 'create'=>1,
@@ -83,6 +99,48 @@ class SeedModuleProfile extends Seeder
             [
                 'profile_id'=>1,
                 'module_id'=>10,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            //docente
+            [
+                'profile_id'=>2,
+                'module_id'=>14,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>2,
+                'module_id'=>15,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>2,
+                'module_id'=>16,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            //estudiantes
+            [
+                'profile_id'=>3,
+                'module_id'=>12,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>3,
+                'module_id'=>13,
                 'create'=>1,
                 'edit'=>1,
                 'delete'=>1,

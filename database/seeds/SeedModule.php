@@ -44,6 +44,7 @@ class SeedModule extends Seeder
                 'icon'=>'eva-briefcase-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
+
             [
                 'name'=>'Modulos',
                 'route'=>'/panel/module/list',
@@ -79,6 +80,7 @@ class SeedModule extends Seeder
                 'icon'=>'eva-clock-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
+            //10
             [
                 'name'=>'Habilidades',
                 'route'=>'/panel/skill/list',
@@ -87,8 +89,36 @@ class SeedModule extends Seeder
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'name'=>'Horarios Estudiante',
+                'name'=>'Reservar Clases',
                 'route'=>'/panel/student/reservation/days',
+                'sub_module'=>null,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Mis Clases',
+                'route'=>'/panel/student/myclass/schedules',
+                'sub_module'=>null,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Horarios Docente',
+                'route'=>'/panel/teacher/myschedules/days',
+                'sub_module'=>null,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Cuestionarios',
+                'route'=>'/panel/teacher/questionnaires/list',
+                'sub_module'=>null,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Materiales',
+                'route'=>'/panel/teacher/materials/list',
                 'sub_module'=>null,
                 'icon'=>'eva-clock-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
