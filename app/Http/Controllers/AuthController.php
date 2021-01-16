@@ -8,12 +8,15 @@ use Validator;
 use App\User;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class AuthController extends Controller
 {
 
     public function HandleLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('ci', 'password');
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -36,46 +39,23 @@ class AuthController extends Controller
 
     public function HandleRefresh()
     {
-        if ($token = $this->HandleGuard()->refresh()) {
-            return response()
-                ->json(['status' => 'successs'], 200)
-                ->header('Authorization', $token);
+        try
+        {
+            if ($token = $this->HandleGuard()->refresh()) {
+                return response()
+                    ->json(['status' => 'successs'], 200)
+                    ->header('Authorization', $token);
+            }
+        }catch(TokenExpiredException $e){
+            return response()->json(['error' => 'refresh_token_error'], 401);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'refresh_token_error'], 401);
+        }catch (TokenBlacklistedException $e) {
+            return response()->json(['error' => 'refresh_token_error'], 401);
+        }catch (TokenInvalidException $e) {
+            return response()->json(['error' => 'refresh_token_error'], 401);
         }
-
-        return response()->json(['error' => 'refresh_token_error'], 401);
-
-        // try{
-        //     if($token = JWTAuth::getToken()){
-        //       JWTAuth::checkOrFail();
-        //     }
-        //   }
-        //   catch(TokenExpiredException $e){
-        //     JWTAuth::setToken(JWTAuth::refresh());
-        //   }
-        //   return response()
-        //           ->json(['status' => 'successs'], 200)
-        //           ->header('Authorization', JWTAuth::getToken()->get());
     }
-    // public function refresh()
-    // {
-    //     return $this->respondWithToken($this->guard()->refresh());
-    // }
-
-    // /**
-    //     * Get the token array structure.
-    //     *
-    //     * @param  string $token
-    //     *
-    //     * @return \Illuminate\Http\JsonResponse
-    //     */
-    // protected function respondWithToken($token)
-    // {
-    //     return response()->json([
-    //         'access_token' => $token,
-    //         'token_type' => 'bearer',
-    //         'expires_in' => $this->guard()->factory()->getTTL() * 60
-    //     ]);
-    // }
     private function HandleGuard()
     {
         return Auth::guard();

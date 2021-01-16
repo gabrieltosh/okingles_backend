@@ -147,6 +147,9 @@ Route::middleware('auth:api')->namespace('Process')->group(function(){
         Route::post('get/assignment/history', 'StudentScheduleController@handleGetAssignmentHistory');
         Route::post('get/assignment', 'StudentScheduleController@handleStoreAssignment');
         Route::post('get/myclass/schedule', 'StudentScheduleController@handleGetScheduleInMyClass');
+        Route::post('store/myclass/task', 'TaskController@handleStoreFile');
+        Route::post('post/myclass/task', 'TaskController@handleGetTasks');
+        Route::post('store/myclass/upload', 'TaskController@handleUploadFile');
     });
     Route::prefix('teacher')->group(function(){
         Route::get('get/days/{id}', 'TeacherScheduleController@handleGetDays');

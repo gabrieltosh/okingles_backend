@@ -13,21 +13,21 @@ class UserController extends Controller
 {
     public function HandleRegisterUser(Request $data){
         User::create([
-            'name'=>$data->name, 
+            'name'=>$data->name,
             'lastname'=>$data->lastname,
-            'email'=>$data->email, 
+            'email'=>$data->email,
             'email_verified_at'=>0,
             'status'=>1,
             'ci'=>$data->ci,
             'occupation'=>$data->occupation,
             'birthdate'=>$data->birthdate,
             'due_date'=>$data->due_date,
+            'start_date'=>$data->start_date,
             'address'=>$data->address,
             'type'=>$data->type,
             'phone'=>$data->phone,
             'invoice'=>$data->invoice,
             'registter'=>$data->registter,
-            'image'=>$data->image,
             'branch_office_id'=>$data->branch_office_id,
             'profile_id'=>$data->profile_id,
             'password'=>'123456',
@@ -89,42 +89,24 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
     }
     public function HandleUpdateUser(Request $data){
-        if(is_null($data->image)){
-            User::findOrFail($data->id)->fill([
-                'name'=>$data->name, 
-                'lastname'=>$data->lastname,
-                'email'=>$data->email, 
-                'ci'=>$data->ci,
-                'occupation'=>$data->occupation,
-                'birthdate'=>$data->birthdate,
-                'due_date'=>$data->due_date,
-                'type'=>$data->type,
-                'address'=>$data->address,
-                'phone'=>$data->phone,
-                'invoice'=>$data->invoice,
-                'registter'=>$data->registter,
-                'branch_office_id'=>$data->branch_office_id,
-                'profile_id'=>$data->profile_id
-            ])->save();
-        }else{
-            User::findOrFail($data->id)->fill([
-                'name'=>$data->name, 
-                'lastname'=>$data->lastname,
-                'email'=>$data->email, 
-                'ci'=>$data->ci,
-                'type'=>$data->type,
-                'occupation'=>$data->occupation,
-                'birthdate'=>$data->birthdate,
-                'due_date'=>$data->due_date,
-                'address'=>$data->address,
-                'phone'=>$data->phone,
-                'invoice'=>$data->invoice,
-                'registter'=>$data->registter,
-                'image'=>$data->image,
-                'branch_office_id'=>$data->branch_office_id,
-                'profile_id'=>$data->profile_id,
-                'password'=>$data->password,
-            ])->save();
-        }
+        User::findOrFail($data->id)->fill([
+            'name'=>$data->name,
+            'lastname'=>$data->lastname,
+            'email'=>$data->email,
+            'ci'=>$data->ci,
+            'type'=>$data->type,
+            'occupation'=>$data->occupation,
+            'birthdate'=>$data->birthdate,
+            'due_date'=>$data->due_date,
+            'start_date'=>$data->start_date,
+            'address'=>$data->address,
+            'phone'=>$data->phone,
+            'invoice'=>$data->invoice,
+            'registter'=>$data->registter,
+            'image'=>$data->image,
+            'branch_office_id'=>$data->branch_office_id,
+            'profile_id'=>$data->profile_id,
+            'password'=>$data->password,
+        ])->save();
     }
 }

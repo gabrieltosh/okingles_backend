@@ -12,7 +12,7 @@ class CreateAssigmentQuestionnairesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('schedule_id')->unsigned();
             $table->bigInteger('questionnaire_id')->unsigned();
-            $table->enum('status',['enable','disable'])->unsigned();
+            $table->enum('status',['enable','disable']);
             $table->foreign('questionnaire_id')->references('id')->on('questionnaires');
             $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->timestamps();

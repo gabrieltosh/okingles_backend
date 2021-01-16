@@ -25,8 +25,8 @@ class SeedModule extends Seeder
             ],
             [
                 'name'=>'Usuarios',
-                'route'=>'/panel/user/list',
-                'sub_module'=>2,
+                'route'=>null,
+                'sub_module'=>null,
                 'icon'=>'eva-people-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -120,6 +120,27 @@ class SeedModule extends Seeder
                 'name'=>'Materiales',
                 'route'=>'/panel/teacher/materials/list',
                 'sub_module'=>null,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Estudiantes',
+                'route'=>'/panel/user/student/list',
+                'sub_module'=>3,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Docentes',
+                'route'=>'/panel/user/teacher/list',
+                'sub_module'=>3,
+                'icon'=>'eva-clock-outline',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'=>'Administrativos',
+                'route'=>'/panel/user/admin/list',
+                'sub_module'=>3,
                 'icon'=>'eva-clock-outline',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ]

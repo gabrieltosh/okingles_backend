@@ -104,6 +104,30 @@ class SeedModuleProfile extends Seeder
                 'delete'=>1,
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
+            [
+                'profile_id'=>1,
+                'module_id'=>17,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>1,
+                'module_id'=>18,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'profile_id'=>1,
+                'module_id'=>19,
+                'create'=>1,
+                'edit'=>1,
+                'delete'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
             //docente
             [
                 'profile_id'=>2,
